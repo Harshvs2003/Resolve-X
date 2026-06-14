@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Link from "next/link";
 
 import { Complaint } from "@/types/complaint";
 
@@ -16,9 +17,7 @@ interface Props {
   data: Complaint[];
 }
 
-export default function ComplaintTable({
-  data,
-}: Props) {
+export default function ComplaintTable({ data }: Props) {
   return (
     <div className="rounded-xl border bg-white">
       <Table>
@@ -40,32 +39,26 @@ export default function ComplaintTable({
               <TableCell>{complaint.id}</TableCell>
 
               <TableCell>
-                {complaint.title}
+                <Link
+                  href={`/dashboard/complaints/${complaint.id}`}
+                  className=" text-grey-600 hover:underline font-medium">
+                  {complaint.title}
+                </Link>
+              </TableCell>
+
+              <TableCell>{complaint.location}</TableCell>
+
+              <TableCell>
+                <PriorityBadge priority={complaint.priority} />
               </TableCell>
 
               <TableCell>
-                {complaint.location}
+                <StatusBadge status={complaint.status} />
               </TableCell>
 
-              <TableCell>
-                <PriorityBadge
-                  priority={complaint.priority}
-                />
-              </TableCell>
+              <TableCell>{complaint.createdBy}</TableCell>
 
-              <TableCell>
-                <StatusBadge
-                  status={complaint.status}
-                />
-              </TableCell>
-
-              <TableCell>
-                {complaint.createdBy}
-              </TableCell>
-
-              <TableCell>
-                {complaint.createdAt}
-              </TableCell>
+              <TableCell>{complaint.createdAt}</TableCell>
             </TableRow>
           ))}
         </TableBody>

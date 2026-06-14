@@ -3,33 +3,33 @@ import { Input } from "@/components/ui/input";
 import ComplaintTable from "@/components/complaints/complaint-table";
 
 import { complaintService } from "@/services/complaint-service";
+import Link from "next/link";
+
+import { Button }
+from "@/components/ui/button";
 
 export default async function ComplaintsPage() {
-  const complaints =
-    await complaintService.getComplaints();
+  const complaints = await complaintService.getComplaints();
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">
-            Complaints
-          </h1>
+          <h1 className="text-3xl font-bold">Complaints</h1>
 
-          <p className="text-slate-500">
-            Manage organization complaints
-          </p>
+          <p className="text-slate-500">Manage organization complaints</p>
         </div>
 
-        <Input
-          placeholder="Search complaints..."
-          className="max-w-sm"
-        />
+        <div className="flex gap-3">
+          <Input placeholder="Search complaints..." className="w-72" />
+
+          <Link href="/dashboard/complaints/create">
+            <Button>Create Complaint</Button>
+          </Link>
+        </div>
       </div>
 
-      <ComplaintTable
-        data={complaints}
-      />
+      <ComplaintTable data={complaints} />
     </div>
   );
 }

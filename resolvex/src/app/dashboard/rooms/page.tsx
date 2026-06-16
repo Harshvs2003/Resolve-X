@@ -1,49 +1,21 @@
-import { roomService }
-from "@/services/room-service";
+import { roomService } from "@/services/room-service";
 
-import RoomCard
-from "@/components/rooms/room-card";
+import RoomCard from "@/components/rooms/room-card";
 
-import { Button }
-from "@/components/ui/button";
+import PageHeader from "@/components/shared/page-header";
+
+import { Button } from "@/components/ui/button";
 
 export default async function RoomsPage() {
-
-  const rooms =
-    await roomService.getRooms();
+  const rooms = await roomService.getRooms();
 
   return (
     <div className="space-y-6">
-
-      <div
-        className="
-        flex
-        justify-between
-        items-center
-        "
-      >
-        <div>
-
-          <h1
-            className="
-            text-3xl
-            font-bold
-            "
-          >
-            Rooms
-          </h1>
-
-          <p className="text-slate-500">
-            Manage locations and rooms
-          </p>
-
-        </div>
-
-        <Button>
-          Add Room
-        </Button>
-
-      </div>
+      <PageHeader
+        title="Rooms"
+        description="Manage locations and rooms"
+        action={<Button>Add Room</Button>}
+      />
 
       <div
         className="
@@ -53,13 +25,9 @@ export default async function RoomsPage() {
         "
       >
         {rooms.map((room) => (
-          <RoomCard
-            key={room.id}
-            room={room}
-          />
+          <RoomCard key={room.id} room={room} />
         ))}
       </div>
-
     </div>
   );
 }
